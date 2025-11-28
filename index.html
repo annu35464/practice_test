@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homie - Real Estate Solution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f0f8ff;
+            color: #333;
+        }
+
+        /* --- Header/Navbar Styles --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .navbar .menu li {
+            margin-left: 2rem;
+        }
+
+        .navbar .menu a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .navbar .menu a:hover {
+            color: #667eea;
+        }
+
+        .btn {
+            background: #667eea; /* Changed primary button color to match visual theme */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #5a6ed0;
+        }
+
+        /* --- Hero and Search Bar (Stats section from original HTML) --- */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem 8rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-bar {
+            position: absolute;
+            bottom: -50px; /* Pulls the search bar up over the next section */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 1000px;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .search-bar .input-group {
+            display: flex;
+            flex-direction: column;
+            padding: 0 1rem;
+            border-right: 1px solid #eee;
+        }
+
+        .search-bar .input-group:last-child {
+            border-right: none;
+        }
+
+        .search-bar .input-group label {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .search-bar .input-group select,
+        .search-bar .input-group input {
+            border: none;
+            padding: 0.5rem 0;
+            font-size: 1rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .search-bar .btn {
+            padding: 1rem 2rem;
+            background: #667eea;
+        }
+
+        /* --- About Section --- */
+        .about {
+            padding: 8rem 2rem 4rem 2rem; /* Adjusted top padding to accommodate search bar */
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            flex: 1;
+            min-width: 400px;
+            text-align: left;
+            padding-left: 2rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 400px;
+            text-align: right;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .about h2, .about h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .about p {
+            margin-bottom: 1rem;
+        }
+
+        .about-features {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-box {
+            text-align: center;
+        }
+
+        .feature-box h4 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        /* --- Services Section --- */
+        .services {
+            padding: 4rem 2rem;
+            background: #f9f9f9;
+            text-align: center;
+        }
+
+        .services h2 {
+            color: #667eea;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .service {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .service h3 {
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+            gap: 4rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat h2 {
+            font-size: 2.5rem;
+            color: #667eea;
+        }
+
+        .stat p {
+            margin-top: 0.5rem;
+            color: #555;
+        }
+
+        /* --- Agents Section --- */
+        .agents {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .agents h2 {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .agents > p {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .agent-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .agent-card {
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            padding-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            max-width: 250px;
+        }
+
+        .agent-card img {
+            width: 100%;
+            height: auto;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .agent-card-content {
+            padding: 1rem;
+            position: relative;
+        }
+
+        .agent-card-content h3 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .agent-card-content p {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .experience-badge {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .become-agent {
+            background: #e6f0ff;
+            padding: 2rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .become-agent h3 {
+            color: #333;
+        }
+
+        .become-agent p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* --- Listings/Properties Styles --- */
+        .listings, .properties {
+            padding: 4rem 2rem;
+            background: #f9f9f9;
+            text-align: center;
+        }
+
+        .listings h2, .properties h2 {
+            font-size: 0.9rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .listings > p, .properties > p {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .listing-grid, .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .listing, .property {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .listing-image, .property-image {
+            position: relative;
+        }
+
+        .listing-image img, .property-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .listing-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .property-location-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .listing-content, .property-content {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .listing-content h3, .property-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .listing-content p, .property-content p {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 0.3rem;
+        }
+
+        .listing-details, .property-details {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-top: 1px solid #eee;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .price-bar {
+            background: #667eea;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .property-agent {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .property-agent img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            object-fit: cover;
+        }
+        
+        .property-agent-info p {
+            margin: 0;
+            line-height: 1.2;
+            font-size: 0.8rem;
+        }
+        
+        .property-agent-info strong {
+            display: block;
+            font-size: 1rem;
+            color: #333;
+        }
+
+
+        /* --- Testimonials Section --- */
+        .testimonials {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .testimonials > p {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 350px;
+            position: relative;
+            text-align: left;
+        }
+        
+        .testimonial-quote {
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .testimonial-author-info p {
+            margin: 0;
+        }
+        
+        .testimonial-author-info strong {
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        /* --- Facilities Section --- */
+        .facilities {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .facilities h2 {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .facilities > p:first-of-type {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .facilities-layout {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .facilities-video-container {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .facilities-video-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .facilities-content {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+
+        .facility-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .facility-list div {
+            padding: 0.5rem;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        /* --- News Section --- */
+        .news {
+            padding: 4rem 2rem;
+            background: #f9f9f9;
+            text-align: center;
+        }
+        
+        .news h2 {
+            font-size: 0.9rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .news > p:first-of-type {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .news-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .news-item-content {
+            padding: 1rem;
+        }
+
+        .news-item-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .news-meta strong {
+            color: #333;
+            font-weight: normal;
+        }
+
+        /* --- Newsletter Section --- */
+        .newsletter {
+            background: #667eea;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            align-items: center;
+            min-width: 400px;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .newsletter-form input {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            margin-right: 1rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .newsletter-form .btn {
+            background: #333;
+        }
+        
+        .newsletter-form .btn:hover {
+            background: #000;
+        }
+
+        /* --- Footer Section --- */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 4rem 2rem 1rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: #667eea;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-section p {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .social-icons a {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .copyright {
+            border-top: 1px solid #555;
+            padding-top: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .copyright a {
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Houzing</div>
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contract</a></li>
+            <li><a href="#" class="btn">Get Started</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Discover A Place you'll love to live</h1>
+        <p>Customer Rating 4.9 | Luxury Residence</p>
+        <p>Houzing is a real estate solution that gives you the local scoop about homes.</p>
+        <p>Search confidently with your trusted source of homes for sale or rent.</p>
+        <a href="#" class="btn" style="margin-top: 1rem;">Make An Enquiry</a>
+        
+        <div class="search-bar">
+             <div class="input-group">
+                <label>Choice Location</label>
+                <select>
+                    <option>Location</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Bedrooms</label>
+                <select>
+                    <option>Any</option>
+                </select>
+            </div>
+            <div class="input-group" style="border-right: none;">
+                <label>For Rent</label>
+                <select>
+                    <option>For Sale</option>
+                </select>
+            </div>
+            <a href="#" class="btn">Search</a>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="about-image">
+                     </div>
+        <div class="about-content">
+            <h2 style="color: #667eea; font-size: 1.1rem; font-weight: normal;">ABOUT US</h2>
+            <h3 style="font-size: 2.5rem; color: #333;">We're on a Mission To Change View Of RealEstate Field.</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit ux sed eiusmod tempor incididunt ut labore et dolore.enim admix minim veniam quis nostrud.</p>
+            
+            <div class="about-features">
+                <div class="feature-box">
+                    <img src="placeholder.svg" alt="Icon" style="width: 40px; height: 40px; margin-bottom: 0.5rem;">
+                    <h4>Modern Villa</h4>
+                    <p>When unknown printer took galley of type and scrambled.</p>
+                </div>
+                <div class="feature-box">
+                    <img src="placeholder.svg" alt="Icon" style="width: 40px; height: 40px; margin-bottom: 0.5rem;">
+                    <h4>Secure Payment</h4>
+                    <p>When unknown printer took galley of type and scrambled.</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <div style="background: white; padding: 1rem; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block;">
+                    <h4 style="color: #667eea; margin: 0;">National Real Estate Awards</h4>
+                    <p style="margin: 0; font-size: 0.9rem;">Analysis</p>
+                </div>
+            </div>
+            <a href="#" class="btn" style="margin-top: 2rem; background: transparent; color: #667eea; border: 1px solid #667eea;">&rarr; Learn More</a>
+        </div>
+    </section>
+
+    <section class="services">
+        <h2 style="font-size: 1.1rem; font-weight: normal;">OUR SERVICES</h2>
+        <p>Our Main Focus</p>
+        <div class="service-grid">
+            <div class="service" style="border-bottom: 3px solid #667eea;">
+                <img src="placeholder.svg" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 1rem;">
+                <h3>**Buy a Home**</h3>
+                <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
+                <a href="#" style="color: #667eea; text-decoration: none;">Find A Home &rarr;</a>
+            </div>
+            <div class="service">
+                <img src="placeholder.svg" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 1rem;">
+                <h3>**Rent a Home**</h3>
+                <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
+                <a href="#" style="color: #667eea; text-decoration: none;">Find A Home &rarr;</a>
+            </div>
+            <div class="service">
+                <img src="placeholder.svg" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 1rem;">
+                <h3>**Sell a Home**</h3>
+                <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
+                <a href="#" style="color: #667eea; text-decoration: none;">Find A Home &rarr;</a>
+            </div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat">
+                <h2>260+</h2>
+                <p>Total Construction</p>
+            </div>
+            <div class="stat">
+                <h2>110+</h2>
+                <p>Apartio Rooms</p>
+            </div>
+            <div class="stat">
+                <h2>190+</h2>
+                <p>Apartments Sold</p>
+            </div>
+            <div class="stat">
+                <h2>560+</h2>
+                <p>Total Area Sq</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="agents">
+        <h2>EXPERTISE IS HERE</h2>
+        <p>**Our Growing Agents**</p>
+        <div class="agent-grid">
+            <div class="agent-card">
+                                <div class="experience-badge">3 Years Experience</div>
+                <div class="agent-card-content">
+                    <h3>David Wing</h3>
+                    <p>Eco Builders</p>
+                    <p>Call: +1 234 567 890</p>
+                </div>
+            </div>
+            <div class="agent-card">
+                                 <div class="experience-badge" style="background: #667eea;">4 Years Experience</div>
+                <div class="agent-card-content">
+                    <h3>Mike Hue</h3>
+                    <p>Architect Design</p>
+                    <p>Call: +1 234 567 890</p>
+                </div>
+            </div>
+            <div class="agent-card">
+                                 <div class="experience-badge">3 Years Experience</div>
+                <div class="agent-card-content">
+                    <h3>Ela Steven</h3>
+                    <p>Interior Design</p>
+                    <p>Call: +1 234 567 890</p>
+                </div>
+            </div>
+            <div class="agent-card">
+                                <div class="experience-badge" style="background: orange;">5 Years Experience</div>
+                <div class="agent-card-content">
+                    <h3>Billi Butcher</h3>
+                    <p>Sweet Home</p>
+                    <p>Call: +1 234 567 890</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="become-agent">
+            <div style="display: flex; align-items: center;">
+                 <img src="placeholder.svg" alt="Icon" style="width: 40px; height: 40px; margin-right: 1rem;">
+                <div>
+                    <h3>**Become An Agent**</h3>
+                    <p>Agent hen an unknown printer took a galley scramble</p>
+                </div>
+            </div>
+            <a href="#" class="btn" style="background: #667eea;">Join Now</a>
+        </div>
+    </section>
+
+    <section class="listings">
+        <h2>FEATURED LISTING</h2>
+        <p>We Bring Dream Homes To Reality</p>
+        <div class="listing-grid">
+            <div class="listing">
+                <div class="listing-image">
+                                        <div class="listing-tag">For Sale</div>
+                </div>
+                <div class="listing-content">
+                    <h3>1963 S Crescent Heights Blvd</h3>
+                    <p>Hills, CA 90210</p>
+                    <div class="listing-details">
+                        <span>2400 Square Feet</span>
+                        <span>2 Garages</span>
+                    </div>
+                    <div class="listing-details">
+                        <span>20 Bedrooms</span>
+                        <span>8 Bathrooms</span>
+                    </div>
+                    <div class="listing-details">
+                        <span style="font-weight: bold;">Michel Smith</span>
+                        <span>1 days ago</span>
+                    </div>
+                </div>
+                <div class="price-bar">$5,304,000</div>
+            </div>
+            
+            <div class="listing">
+                <div class="listing-image">
+                                        <div class="listing-tag" style="background: #ff6b6b;">For Rent</div>
+                </div>
+                <div class="listing-content">
+                    <h3>302 North Plam Drive</h3>
+                    <p>Beverly Hills, CA 90210</p>
+                    <div class="listing-details">
+                        <span>2300 Square Feet</span>
+                        <span>3 Garages</span>
+                    </div>
+                    <div class="listing-details">
+                        <span>20 Bedrooms</span>
+                        <span>10 Bathrooms</span>
+                    </div>
+                    <div class="listing-details">
+                        <span style="font-weight: bold;">Adam Smith</span>
+                        <span>5 days ago</span>
+                    </div>
+                </div>
+                <div class="price-bar">$5,142,000</div>
+            </div>
+
+            <div class="listing">
+                <div class="listing-image">
+                                        <div class="listing-tag">For Sale</div>
+                </div>
+                <div class="listing-content">
+                    <h3>28 Quaker Road, Manhasset</h3>
+                    <p>California Hills, CA 90210</p>
+                    <div class="listing-details">
+                        <span>2020 Square Feet</span>
+                        <span>2 Garages</span>
+                    </div>
+                    <div class="listing-details">
+                        <span>22 Bedrooms</span>
+                        <span>11 Bathrooms</span>
+                    </div>
+                    <div class="listing-details">
+                        <span style="font-weight: bold;">David Lee</span>
+                        <span>5 days ago</span>
+                    </div>
+                </div>
+                <div class="price-bar">$4,784,000</div>
+            </div>
+            
+            <div class="listing">
+                <div class="listing-image">
+                                        <div class="listing-tag">For Sale</div>
+                </div>
+                <div class="listing-content">
+                    <h3>Sofi Berryessa 750 King Road</h3>
+                    <p>Los Angel, CA 90210</p>
+                    <div class="listing-details">
+                        <span>2350 Square Feet</span>
+                        <span>4 Garages</span>
+                    </div>
+                    <div class="listing-details">
+                        <span>19 Bedrooms</span>
+                        <span>10 Bathrooms</span>
+                    </div>
+                    <div class="listing-details">
+                        <span style="font-weight: bold;">Lee Hue</span>
+                        <span>5 days ago</span>
+                    </div>
+                </div>
+                <div class="price-bar">$3,534,000</div>
+            </div>
+            <div class="listing">
+                <div class="listing-image">
+                                        <div class="listing-tag" style="background: #ff6b6b;">For Rent</div>
+                </div>
+                <div class="listing-content">
+                    <h3>1203 Orren Street, Northeast</h3>
+                    <p>Louisiana, CA 90210</p>
+                    <div class="listing-details">
+                        <span>1800 Square Feet</span>
+                        <span>2 Garages</span>
+                    </div>
+                    <div class="listing-details">
+                        <span>16 Bedrooms</span>
+                        <span>7 Bathrooms</span>
+                    </div>
+                    <div class="listing-details">
+                        <span style="font-weight: bold;">Tom Steven</span>
+                        <span>6 days ago</span>
+                    </div>
+                </div>
+                <div class="price-bar">$3,142,000</div>
+            </div>
+            <div class="listing">
+                <div class="listing-image">
+                                        <div class="listing-tag">For Sale</div>
+                </div>
+                <div class="listing-content">
+                    <h3>28 Ridge Road, Manhasset</h3>
+                    <p>Claremont, CA 90210</p>
+                    <div class="listing-details">
+                        <span>2020 Square Feet</span>
+                        <span>3 Garages</span>
+                    </div>
+                    <div class="listing-details">
+                        <span>20 Bedrooms</span>
+                        <span>11 Bathrooms</span>
+                    </div>
+                    <div class="listing-details">
+                        <span style="font-weight: bold;">David Jhonson</span>
+                        <span>7 days ago</span>
+                    </div>
+                </div>
+                <div class="price-bar">$2,384,000</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2>OUR TESTIMONIALS</h2>
+        <p>**What Our Customers Says**</p>
+        <div class="testimonial-grid">
+            <div class="testimonial">
+                <p class="testimonial-quote">"I could probably go into sales for you. I am completely blown away. After using SEO my business skyrocketed! The very best."</p>
+                <div class="testimonial-author">
+                                         <div class="testimonial-author-info">
+                        <strong>Grace Hall</strong>
+                        <p>Customer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-quote">"I received very good care at Clinicity Clinic, and the doctor took the time to explain the medications he was prescribing and why."</p>
+                <div class="testimonial-author">
+                                        <div class="testimonial-author-info">
+                        <strong>Connor Walker</strong>
+                        <p>Customer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-quote">"I have insurance and still go to this clinic. The cost is in line with my copy to do and I don't need to make an appointment."</p>
+                <div class="testimonial-author">
+                                        <div class="testimonial-author-info">
+                        <strong>Kira Wood</strong>
+                        <p>Customer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="properties">
+        <h2>PROPERTIES</h2>
+        <p>**Our Popular Properties**</p>
+        <div class="property-grid">
+            <div class="property">
+                <div class="property-image">
+                                        <div class="property-location-tag">SINGAPORE</div>
+                </div>
+                <div class="property-content">
+                    <div style="font-size: 1.5rem; color: #667eea; font-weight: bold;">$300,000</div>
+                    <p>5232 North Carolina Ave. 21BC</p>
+                    <p>**California, USA**</p>
+                    <p style="margin-top: 1rem;">4 beds | 3 baths</p>
+                    <div class="property-agent">
+                                                <div class="property-agent-info">
+                            <strong>William Hue</strong>
+                            <p>Estate Agents</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="property">
+                <div class="property-image">
+                                        <div class="property-location-tag">LOS ANGELS</div>
+                </div>
+                <div class="property-content">
+                    <div style="font-size: 1.5rem; color: #667eea; font-weight: bold;">$350,000</div>
+                    <p>5232 North Carolina Ave. 21BC</p>
+                    <p>Los Angels, USA</p>
+                    <p style="margin-top: 1rem;">5 beds | 3 baths</p>
+                    <div class="property-agent">
+                                                <div class="property-agent-info">
+                            <strong>Adam Smith</strong>
+                            <p>Estate Agents</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="property">
+                <div class="property-image">
+                                        <div class="property-location-tag">CALIFORNIA</div>
+                </div>
+                <div class="property-content">
+                    <div style="font-size: 1.5rem; color: #667eea; font-weight: bold;">$500,000</div>
+                    <p>5232 North Carolina Ave. 21BC</p>
+                    <p>Houston, USA</p>
+                    <p style="margin-top: 1rem;">6 beds | 4 baths</p>
+                    <div class="property-agent">
+                                                <div class="property-agent-info">
+                            <strong>Butcher Bos</strong>
+                            <p>Estate Agents</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="facilities">
+        <h2>OUR FACILITIES</h2>
+        <p>The Experts In Local And International Property</p>
+        <p style="max-width: 800px; margin: 0 auto 2rem auto;">Agent hen an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic.</p>
+        
+        <div class="facilities-layout">
+            <div class="facilities-video-container">
+                                <div class="play-button">&#9658;</div>
+            </div>
+            <div class="facilities-content">
+                <div class="facility-list">
+                    <div>&#10003; Parking Space</div>
+                    <div>&#10003; Medical Center</div>
+                    <div>&#10003; Swimming Pool</div>
+                    <div>&#10003; Kids Playland</div>
+                    <div>&#10003; Private Security</div>
+                    <div>&#10003; Library Area</div>
+                </div>
+                <a href="#" class="btn" style="margin-top: 2rem;">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="news">
+        <h2>NEWS AND BLOGS</h2>
+        <p>Leatest News Feeds</p>
+        <div class="news-grid">
+            <div class="news-item">
+                                 <div class="news-item-content">
+                    <h3>New Apartment Nice in the Best Canadian Cities</h3>
+                    <p>William Seklo - Apartment</p>
+                    <div class="news-meta">
+                        <span>July 10, 2022</span>
+                        <a href="#" class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;">READ MORE</a>
+                    </div>
+                </div>
+            </div>
+            <div class="news-item">
+                                 <div class="news-item-content">
+                    <h3>Diamond Manor Apartment in the New York</h3>
+                    <p>Michel Seklo - Apartment</p>
+                    <div class="news-meta">
+                        <span>July 13, 2022</span>
+                        <a href="#" class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;">READ MORE</a>
+                    </div>
+                </div>
+            </div>
+            <div class="news-item">
+                                 <div class="news-item-content">
+                    <h3>Unveils the Best Canadian Cities for Biking</h3>
+                    <p>Adam Smith - Apartment</p>
+                    <div class="news-meta">
+                        <span>July 15, 2022</span>
+                        <a href="#" class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;">READ MORE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="newsletter-text">
+            <h2>Join Our Newsletter Now</h2>
+            <p>Register now to get updates on promotions...</p>
+        </div>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Enter Your Email To Subscribe...">
+            <button class="btn">SUBSCRIBE</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <div class="footer-logo">Houzing</div>
+                <p>Lorem Ipsum is simply dummy text of the and typesetting industry. Lorem Ipsum is dummy text of the printing.</p>
+                <div class="social-icons">
+                    <a href="#">f</a> 
+                    <a href="#">in</a> 
+                    <a href="#">t</a>
+                    <a href="#">l</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Wish List</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Submit a Request</a></li>
+                    <li><a href="#">Appointment</a></li>
+                    <li><a href="#">Promotional Offers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contract</h3>
+                <p>124 Brooklyn, New York United States</p>
+                <p>+11 2 3456 7890</p>
+                <p>info@houzing.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© Copyright Medih 2022 All Right Reserved. <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a></p>
+        </div>
+    </footer>
+</body>
+</html>
